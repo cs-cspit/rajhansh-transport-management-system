@@ -1,0 +1,69 @@
+/* src/auth.css */
+
+.auth-container {
+  background: #000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-box {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 50px 30px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.2);
+}
+
+.auth-logo {
+  width: 120px; /* was 100px */
+  height: auto;
+  transition: transform 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.auth-logo:hover {
+  transform: scale(1.05); /* optional zoom on hover */
+}
+
+.form-control {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.form-control::placeholder {
+  color: #ccc;
+}
+
+.btn-orange {
+  background-color: #f7a600;
+  color: #000;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.btn-orange:hover {
+  background-color: #e88e00;
+}
+
+.btn-outline-light {
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.btn-outline-light:hover {
+  background: #fff;
+  color: #000;
+}

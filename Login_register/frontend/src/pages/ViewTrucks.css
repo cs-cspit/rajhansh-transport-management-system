@@ -1,0 +1,8 @@
+/* src/pages/ViewTrucks.css */
+.container {
+  max-width: 1200px;
+}
+
+input::placeholder {
+  color: #888;
+}
