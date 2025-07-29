@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import "../styles/ViewTrucks.css";
+import { FaTimes, FaSave, FaSpinner } from "react-icons/fa";
 import axios from "../axiosConfig";
 
 function EditTruckModal({ truckId, onClose, onUpdated }) {
@@ -40,7 +42,7 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
           roadTaxExpiry: truck.roadTaxExpiry?.split("T")[0] || ""
         });
       } catch (err) {
-        console.error("Error fetching truck:", err);
+        setError("Error fetching truck details.");
       }
     };
 
@@ -76,7 +78,6 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
       onUpdated("✅ Truck updated successfully.");
       onClose();
     } catch (err) {
-      console.error("❌ Error updating truck:", err);
       setError("❌ Failed to update truck.");
     } finally {
       setLoading(false);
@@ -84,18 +85,25 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
   };
 
   return (
-    <div
-      className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)", zIndex: 9999 }}
-    >
-      <div
-        className="bg-white p-4 rounded shadow overflow-auto"
-        style={{ maxWidth: "600px", width: "100%", maxHeight: "95vh" }}
-      >
-        <h5 className="text-primary mb-3">✏️ Edit Truck Details</h5>
+    <div className="edit-truck-modal-bg">
+      <div className="edit-truck-modal">
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h4 className="edit-truck-modal-title">
+            <span style={{ color: "#f47c27", marginRight: 8 }}>✏️</span>
+            Edit Truck
+          </h4>
+          <button
+            type="button"
+            className="edit-truck-modal-close"
+            onClick={onClose}
+            title="Close"
+          >
+            <FaTimes />
+          </button>
+        </div>
 
         {error && (
-          <div className="alert alert-danger" role="alert">
+          <div className="trucks-alert-error alert" role="alert">
             {error}
           </div>
         )}
@@ -103,11 +111,11 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
         <form onSubmit={handleSubmit}>
           <div className="row g-3">
             <div className="col-md-6">
-              <label className="form-label">Truck Number</label>
+              <label className="edit-truck-label">Truck Number</label>
               <input
                 type="text"
                 name="truckNumber"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.truckNumber}
                 onChange={handleChange}
                 required
@@ -115,11 +123,11 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Model</label>
+              <label className="edit-truck-label">Model</label>
               <input
                 type="text"
                 name="model"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.model}
                 onChange={handleChange}
                 required
@@ -127,11 +135,11 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Year of Manufacture</label>
+              <label className="edit-truck-label">Year of Manufacture</label>
               <input
                 type="number"
                 name="yearOfManufacture"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.yearOfManufacture}
                 onChange={handleChange}
                 required
@@ -139,11 +147,11 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Vehicle Type</label>
+              <label className="edit-truck-label">Vehicle Type</label>
               <input
                 type="text"
                 name="vehicleType"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.vehicleType}
                 onChange={handleChange}
                 required
@@ -151,11 +159,11 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">Owner Name</label>
+              <label className="edit-truck-label">Owner Name</label>
               <input
                 type="text"
                 name="ownerName"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.ownerName}
                 onChange={handleChange}
                 required
@@ -163,66 +171,66 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">PUC Expiry</label>
+              <label className="edit-truck-label">PUC Expiry</label>
               <input
                 type="date"
                 name="pucExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.pucExpiry}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">All India Permit Expiry</label>
+              <label className="edit-truck-label">All India Permit Expiry</label>
               <input
                 type="date"
                 name="allIndiaPermitExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.allIndiaPermitExpiry}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Gujarat Permit Expiry</label>
+              <label className="edit-truck-label">Gujarat Permit Expiry</label>
               <input
                 type="date"
                 name="gujaratPermitExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.gujaratPermitExpiry}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Insurance Expiry</label>
+              <label className="edit-truck-label">Insurance Expiry</label>
               <input
                 type="date"
                 name="insuranceExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.insuranceExpiry}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Fitness Expiry</label>
+              <label className="edit-truck-label">Fitness Expiry</label>
               <input
                 type="date"
                 name="fitnessExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.fitnessExpiry}
                 onChange={handleChange}
               />
             </div>
 
             <div className="col-md-6">
-              <label className="form-label">Road Tax Expiry</label>
+              <label className="edit-truck-label">Road Tax Expiry</label>
               <input
                 type="date"
                 name="roadTaxExpiry"
-                className="form-control"
+                className="edit-truck-input"
                 value={formData.roadTaxExpiry}
                 onChange={handleChange}
               />
@@ -230,82 +238,101 @@ function EditTruckModal({ truckId, onClose, onUpdated }) {
 
             {/* File Inputs */}
             <div className="col-md-12">
-              <label className="form-label">Truck Image</label>
+              <label className="edit-truck-label">Truck Image</label>
               <input
                 type="file"
                 name="truckImage"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">PUC File</label>
+              <label className="edit-truck-label">PUC File</label>
               <input
                 type="file"
                 name="pucFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">All India Permit File</label>
+              <label className="edit-truck-label">All India Permit File</label>
               <input
                 type="file"
                 name="permitAllIndiaFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">Gujarat Permit File</label>
+              <label className="edit-truck-label">Gujarat Permit File</label>
               <input
                 type="file"
                 name="permitGujaratFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">Insurance File</label>
+              <label className="edit-truck-label">Insurance File</label>
               <input
                 type="file"
                 name="insuranceFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">Fitness File</label>
+              <label className="edit-truck-label">Fitness File</label>
               <input
                 type="file"
                 name="fitnessFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
 
             <div className="col-md-12">
-              <label className="form-label">RC File</label>
+              <label className="edit-truck-label">RC File</label>
               <input
                 type="file"
                 name="rcFile"
-                className="form-control"
+                className="edit-truck-input"
                 onChange={handleFileChange}
               />
             </div>
           </div>
 
-          <div className="d-flex justify-content-end mt-4">
-            <button type="button" className="btn btn-secondary me-2" onClick={onClose}>
+          <div className="edit-truck-modal-actions">
+            <button
+              type="button"
+              className="edit-truck-btn-cancel"
+              onClick={onClose}
+              disabled={loading}
+            >
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? "Saving..." : "Save Changes"}
+            <button
+              type="submit"
+              className="edit-truck-btn-save"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <FaSpinner className="fa-spin" style={{ marginRight: 6 }} />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <FaSave style={{ marginRight: 6 }} />
+                  Save Changes
+                </>
+              )}
             </button>
           </div>
         </form>

@@ -1,0 +1,309 @@
+/* === Container === */
+.container {
+  max-width: 1200px;
+  /* background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 32px 24px; */
+}
+
+/* === Headings === */
+.trucks-title {
+  color: #f47c27;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* === Status Message (Alert) === */
+.trucks-alert-success {
+  background: #fff3e0;
+  color: #f47c27;
+  border: 1.5px solid #f47c27;
+  font-weight: 500;
+}
+.trucks-alert-error {
+  background: #fff0f0;
+  color: #d32f2f;
+  border: 1.5px solid #d32f2f;
+  font-weight: 500;
+}
+
+/* === Search & Add Button Row === */
+.trucks-search-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  padding: 12px 0;
+  border-radius: 10px;
+}
+
+.trucks-search-input {
+  max-width: 300px;
+  border-color: #f47c27;
+  background: #fff;
+  color: #222;
+}
+
+.trucks-search-input::placeholder {
+  color: #888;
+}
+
+.trucks-add-btn {
+  background: #f47c27;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  padding: 8px 18px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(244,124,39,0.08);
+}
+.trucks-add-btn:hover {
+  background: #d65d0e;
+}
+
+/* === Export Buttons === */
+.trucks-export-btn {
+  border: 1.5px solid #f47c27;
+  color: #f47c27;
+  font-weight: 600;
+  background: #fff;
+  border-radius: 6px;
+  padding: 8px 18px;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(244,124,39,0.06);
+}
+.trucks-export-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.trucks-export-btn:hover:not(:disabled) {
+  background: #f47c27;
+  color: #fff;
+}
+
+/* === Truck Card === */
+.truck-card {
+  border-left: 6px solid #f47c27;
+  background: #fff;
+  color: #222;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.truck-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(244,124,39,0.10);
+}
+.truck-card .card-title {
+  color: #f47c27;
+  font-weight: 700;
+}
+.truck-card a {
+  color: #f47c27;
+  font-weight: 500;
+  text-decoration: underline;
+}
+.truck-card a:hover {
+  color: #fff;
+  background: #f47c27;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+/* === Card Buttons === */
+.truck-edit-btn {
+  background: #f47c27;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  padding: 4px 18px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(244,124,39,0.08);
+}
+.truck-edit-btn:hover {
+  background: #d65d0e;
+}
+
+.truck-delete-btn {
+  background: #fff;
+  color: #f47c27;
+  font-weight: 600;
+  border: 1.5px solid #f47c27;
+  border-radius: 6px;
+  padding: 4px 18px;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(244,124,39,0.04);
+}
+.truck-delete-btn:hover {
+  background: #f47c27;
+  color: #fff;
+}
+
+/* === QR Code Label === */
+.truck-qr-label {
+  color: #f47c27;
+  font-size: 0.95rem;
+}
+
+/* === Pagination === */
+.trucks-pagination .page-link {
+  color: #f47c27;
+  border-color: #f47c27;
+  background: #fff;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+.trucks-pagination .active .page-link,
+.trucks-pagination .page-link.active {
+  color: #fff !important;
+  background: #f47c27 !important;
+  border-color: #f47c27 !important;
+}
+.trucks-pagination .page-link:focus {
+  box-shadow: 0 0 0 2px #f47c27;
+}
+
+/* === Confirm Modal === */
+.trucks-confirm-modal .modal-title {
+  color: #f47c27;
+  font-weight: 700;
+}
+.trucks-confirm-modal .btn-confirm {
+  background: #f47c27;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  transition: background 0.2s;
+}
+.trucks-confirm-modal .btn-confirm:hover {
+  background: #d65d0e;
+}
+
+/* === Edit Truck Modal === */
+.edit-truck-modal-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-truck-modal {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 32px 28px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.edit-truck-modal-title {
+  color: #f47c27;
+  font-weight: 700;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.edit-truck-modal-close {
+  background: none;
+  border: none;
+  color: #f47c27;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.2s;
+}
+.edit-truck-modal-close:hover {
+  color: #d65d0e;
+}
+
+.edit-truck-label {
+  color: #222;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.edit-truck-input {
+  border: 1.5px solid #f47c27;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  color: #222;
+  background: #fff;
+  font-size: 1rem;
+}
+
+.edit-truck-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.edit-truck-btn-cancel {
+  background: #fff;
+  color: #f47c27;
+  border: 1.5px solid #f47c27;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+.edit-truck-btn-cancel:hover {
+  background: #f47c27;
+  color: #fff;
+}
+
+.edit-truck-btn-save {
+  background: #f47c27;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-weight: 600;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+}
+.edit-truck-btn-save:hover {
+  background: #d65d0e;
+}
+
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px 2px;
+  }
+  .trucks-search-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 8px 0;
+  }
+  .truck-card {
+    margin-bottom: 1rem;
+  }
+}
+
+@keyframes fa-spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(359deg);}
+}

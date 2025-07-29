@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
 import { Outlet } from 'react-router-dom';
-import '../layout.css';
+import '../styles/Layout.css';
 
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

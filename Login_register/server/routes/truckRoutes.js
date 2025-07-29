@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const Truck = require('../models/truck');
 
-// Ensure folders exist
+// 🔧 Ensure upload folders exist
 const ensureFolderExists = (folder) => {
   if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
 };
@@ -17,15 +17,18 @@ const uploadPaths = {
   permitGujaratFile: 'uploads/permitGujarat',
   insuranceFile: 'uploads/insurance',
   fitnessFile: 'uploads/fitness',
-  rcFile: 'uploads/rc'
+  rcFile: 'uploads/rc',
+  truckImage: 'uploads/images'
 };
 
 Object.values(uploadPaths).forEach(ensureFolderExists);
 
-// Allow only PDFs
+// ✅ Multer config
 const fileFilter = (req, file, cb) => {
-  const isPDF = file.mimetype === 'application/pdf';
-  if (isPDF) return cb(null, true);
+  const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+  if (allowedTypes.includes(file.mimetype)) {
+    return cb(null, true);
+  }
   cb(new Error(`Invalid file type for ${file.fieldname}`), false);
 };
 
@@ -49,10 +52,11 @@ const fileFields = [
   { name: 'permitGujaratFile' },
   { name: 'insuranceFile' },
   { name: 'fitnessFile' },
-  { name: 'rcFile' }
+  { name: 'rcFile' },
+  { name: 'truckImage' }
 ];
 
-// ✅ POST /api/trucks → Add truck and generate QR
+// ✅ POST /api/trucks → Add new truck
 router.post('/', upload.fields(fileFields), async (req, res) => {
   try {
     const {
@@ -60,6 +64,10 @@ router.post('/', upload.fields(fileFields), async (req, res) => {
       pucExpiry, allIndiaPermitExpiry, gujaratPermitExpiry,
       insuranceExpiry, fitnessExpiry, roadTaxExpiry
     } = req.body;
+
+    if (!truckNumber || !model || !ownerName) {
+      return res.status(400).json({ error: 'truckNumber, model, and ownerName are required.' });
+    }
 
     const files = req.files || {};
 
@@ -80,76 +88,101 @@ router.post('/', upload.fields(fileFields), async (req, res) => {
       permitGujaratFile: files.permitGujaratFile?.[0]?.filename || '',
       insuranceFile: files.insuranceFile?.[0]?.filename || '',
       fitnessFile: files.fitnessFile?.[0]?.filename || '',
-      rcFile: files.rcFile?.[0]?.filename || ''
+      rcFile: files.rcFile?.[0]?.filename || '',
+      truckImage: files.truckImage?.[0]?.filename || ''
     });
 
-    await newTruck.save();
-
-    const host = req.headers.host || 'localhost:3001';
-    const detailUrl = `http://${host}/trucks/${newTruck._id}`;
-
+    // ✅ Generate QR Code
+    const detailUrl = `http://localhost:3000/truck-dashboard/${newTruck._id}`;
     const qrCodeDataURL = await QRCode.toDataURL(detailUrl);
+
     newTruck.qrCode = qrCodeDataURL;
     await newTruck.save();
 
     res.status(201).json({
       message: '✅ Truck added successfully',
       truck: newTruck,
+      qrCodeUrl: qrCodeDataURL
     });
   } catch (error) {
     console.error('❌ Error adding truck:', error.message);
+    if (error.code === 11000) {
+      return res.status(400).json({ error: '❌ Duplicate truckNumber not allowed.' });
+    }
     res.status(500).json({ error: error.message || 'Failed to add truck' });
   }
 });
 
-// ✅ GET /api/trucks → View all trucks
+// ✅ GET /api/trucks → Get all trucks
 router.get('/', async (req, res) => {
   try {
-    const trucks = await Truck.find().sort({ createdAt: -1 });
+    const trucks = await Truck.find();
     res.json(trucks);
-  } catch (error) {
-    console.error('❌ Error fetching trucks:', error.message);
+  } catch (err) {
+    console.error("❌ Failed to fetch trucks:", err);
     res.status(500).json({ error: 'Failed to fetch trucks' });
   }
 });
 
-// ✅ GET /api/trucks/:id → Get single truck
+// ✅ GET /api/trucks/:id → Get truck by ID
 router.get('/:id', async (req, res) => {
   try {
     const truck = await Truck.findById(req.params.id);
-    if (!truck) return res.status(404).json({ message: 'Truck not found' });
+    if (!truck) return res.status(404).json({ error: 'Truck not found' });
+
     res.json(truck);
-  } catch (error) {
-    console.error('❌ Error fetching truck by ID:', error.message);
-    res.status(500).json({ message: 'Failed to fetch truck' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// ✅ GET /api/trucks/:id/qrcode → Get QR code
+router.get('/:id/qrcode', async (req, res) => {
+  try {
+    const truck = await Truck.findById(req.params.id);
+    if (!truck) return res.status(404).json({ error: 'Truck not found' });
+
+    const qrCodeUrl = await QRCode.toDataURL(`http://localhost:3000/truck-dashboard/${truck._id}`);
+    res.json({ qrCodeUrl });
+  } catch (err) {
+    console.error("❌ QR code fetch error:", err);
+    res.status(500).json({ error: 'Failed to generate QR code' });
+  }
+});
+
+// ✅ GET /api/trucks/scan/:qrCode → Find truck by QR code (for driver QR scan)
+router.get('/scan/:qrCode', async (req, res) => {
+  try {
+    const truck = await Truck.findOne({ qrCode: req.params.qrCode });
+    if (!truck) {
+      return res.status(404).json({ message: 'Truck not found' });
+    }
+    res.json(truck);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
 // ✅ PUT /api/trucks/:id → Update truck
 router.put('/:id', upload.fields(fileFields), async (req, res) => {
   try {
+    const updateData = req.body;
     const files = req.files || {};
-    const updates = {
-      ...req.body,
-      pucFile: files.pucFile?.[0]?.filename,
-      permitAllIndiaFile: files.permitAllIndiaFile?.[0]?.filename,
-      permitGujaratFile: files.permitGujaratFile?.[0]?.filename,
-      insuranceFile: files.insuranceFile?.[0]?.filename,
-      fitnessFile: files.fitnessFile?.[0]?.filename,
-      rcFile: files.rcFile?.[0]?.filename
-    };
 
-    Object.keys(updates).forEach((key) => {
-      if (updates[key] === undefined) delete updates[key];
-    });
+    for (const field in files) {
+      updateData[field] = files[field]?.[0]?.filename;
+    }
 
-    const updatedTruck = await Truck.findByIdAndUpdate(req.params.id, updates, { new: true });
-    if (!updatedTruck) return res.status(404).json({ message: 'Truck not found' });
+    const updatedTruck = await Truck.findByIdAndUpdate(req.params.id, updateData, { new: true });
+
+    if (!updatedTruck) {
+      return res.status(404).json({ error: 'Truck not found' });
+    }
 
     res.json({ message: '✅ Truck updated successfully', truck: updatedTruck });
   } catch (error) {
-    console.error('❌ Error updating truck:', error.message);
-    res.status(500).json({ message: 'Failed to update truck' });
+    console.error("❌ Error updating truck:", error.message);
+    res.status(500).json({ error: 'Failed to update truck' });
   }
 });
 
@@ -157,13 +190,12 @@ router.put('/:id', upload.fields(fileFields), async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await Truck.findByIdAndDelete(req.params.id);
-    if (!deleted) {
-      return res.status(404).json({ error: 'Truck not found' });
-    }
+    if (!deleted) return res.status(404).json({ error: 'Truck not found' });
+
     res.json({ message: '✅ Truck deleted successfully' });
   } catch (err) {
-    console.error('❌ Error deleting truck:', err.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("❌ Error deleting truck:", err.message);
+    res.status(500).json({ error: 'Failed to delete truck' });
   }
 });
 

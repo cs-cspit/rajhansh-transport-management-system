@@ -27,8 +27,14 @@ const truckSchema = new mongoose.Schema({
   // 🧾 QR Code
   qrCode: { type: String },
 
+  // Status (optional, recommended)
+  status: { type: String, enum: ['active', 'inactive', 'sold'], default: 'active' },
+
   // 🕒 Metadata
   createdAt: { type: Date, default: Date.now }
 });
+
+// Index for faster search by truckNumber
+truckSchema.index({ truckNumber: 1 });
 
 module.exports = mongoose.model('Truck', truckSchema);

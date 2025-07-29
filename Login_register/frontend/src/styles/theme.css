@@ -1,0 +1,35 @@
+:root {
+  --primary-orange: #ff6600;
+  --primary-black: #1e1e1e;
+  --white: #ffffff;
+  --background-light: #f7f8fa;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  background-color: var(--primary-black);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo & App Title */
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-section img {
+  height: 50px;
+  object-fit: contain;
+}
+
+.logo-section .app-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-left: 15px;
+  color: var(--white);
+}

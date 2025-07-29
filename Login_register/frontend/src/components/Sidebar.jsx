@@ -1,78 +1,63 @@
-// src/components/Sidebar.jsx
-
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import {
-  FaHome,
-  FaTruck,
-  FaUserTie,
-  FaChartBar,
-  FaGasPump,
-  FaListUl,
-  FaPlus,
-  FaUsers
-} from "react-icons/fa";
-import "../layout.css";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaTruck, FaUserCog, FaGasPump, FaTools, FaPlus, FaChartBar, FaUser } from "react-icons/fa";
+import '../styles/layout.css';
 
-function Sidebar() {
-  const location = useLocation();
-
-  const isActive = (path) => location.pathname === path ? "active" : "";
-
+function Sidebar({ isOpen }) {
   return (
-    <div className="sidebar">
-      <div className="sidebar-title">Rajhans Menu</div>
+    <nav className={`sidebar${isOpen ? " open" : ""}`}>
+      <div className="sidebar-title">Menu</div>
       <ul className="sidebar-list">
-
-        {/* 🏠 Dashboard */}
-        <li className={isActive("/")}>
-          <Link to="/">
-            <FaHome style={{ marginRight: "8px" }} />
+        <li>
+          <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaHome /></span>
             Dashboard
-          </Link>
+          </NavLink>
         </li>
-
-        {/* 🚛 Truck Management */}
-        <li className={isActive("/view-trucks")}>
-          <Link to="/view-trucks">
-            <FaTruck style={{ marginRight: "8px" }} />
-            View Trucks
-          </Link>
+        <li>
+          <NavLink to="/view-trucks" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaTruck /></span>
+            Truck Management
+          </NavLink>
         </li>
-
-        {/* 🧑‍✈️ Driver Management */}
-        <li className={isActive("/view-drivers")}>
-          <Link to="/view-drivers">
-            <FaUsers style={{ marginRight: "8px" }} />
-            View Drivers
-          </Link>
+        <li>
+          <NavLink to="/view-drivers" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaUserCog /></span>
+            Driver Management
+          </NavLink>
         </li>
-
-        <li className={isActive("/add-driver")}>
-          <Link to="/add-driver">
-            <FaPlus style={{ marginRight: "8px" }} />
-            Add Driver
-          </Link>
+        <li>
+          <NavLink to="/fuel-logs" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaGasPump /></span>
+            Fuel Logs
+          </NavLink>
         </li>
-
-        {/* 📊 Reports */}
-        <li className={isActive("/reports")}>
-          <Link to="/reports">
-            <FaChartBar style={{ marginRight: "8px" }} />
+        <li>
+          <NavLink to="/maintenance" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaTools /></span>
+            Maintenance
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/add-trip" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaPlus /></span>
+            Add Trip
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/reports" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaChartBar /></span>
             Reports
-          </Link>
+          </NavLink>
         </li>
-
-        {/* ⛽ Fuel Logs */}
-        <li className={isActive("/fuel")}>
-          <Link to="/fuel">
-            <FaGasPump style={{ marginRight: "8px" }} />
-            Fuel Log
-          </Link>
+        <li>
+          <NavLink to="/profile" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="sidebar-icon"><FaUser /></span>
+            Profile
+          </NavLink>
         </li>
-
       </ul>
-    </div>
+    </nav>
   );
 }
 

@@ -7,29 +7,40 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
-// ✅ Models
-const OwnerModel = require("./models/Owner");
-
-// ✅ Routes
-const truckRoutes = require("./routes/truckRoutes");
-const driverRoutes = require("./routes/drivers");
-
 const app = express();
 
+// ------------------- MODELS ------------------- //
+const OwnerModel = require("./models/Owner");
+const dashboardModel = require("./models/Dashboard");
+
+// ------------------- ROUTES ------------------- //
+const truckRoutes = require("./routes/truckRoutes");
+const driverRoutes = require("./routes/drivers");
+const driverAuthRoutes = require('./routes/driverAuth');
+const ownerAuthRoutes = require('./routes/ownerAuth');
+const dashboardRoutes = require("./routes/dashboard");
+const adminRoutes = require('./routes/admin');
+
 // ------------------- MIDDLEWARE ------------------- //
-app.use(cors());                  // ✅ Allow frontend requests
-app.use(express.json());         // ✅ Parse incoming JSON
-app.use(helmet());               // ✅ Secure HTTP headers
+app.use(cors());
+app.use(express.json());
+app.use(helmet());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ Serve static files from 'uploads' folder
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// ------------------- ROUTE MOUNTING ------------------- //
+app.use('/api/driver', driverAuthRoutes);
+app.use('/api/owner', ownerAuthRoutes);
+app.use("/api/trucks", truckRoutes);
+app.use("/api/drivers", driverRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use('/api/admin', adminRoutes);
 
-// ------------------- ENV ------------------- //
+// ------------------- ENVIRONMENT ------------------- //
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// ------------------- CONNECT TO MONGODB ------------------- //
+// ------------------- MONGODB CONNECTION ------------------- //
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -39,7 +50,7 @@ mongoose.connect(MONGO_URI, {
   console.error("❌ MongoDB connection error:", err);
 });
 
-// ------------------- AUTH ROUTES ------------------- //
+// ------------------- OWNER AUTH ------------------- //
 app.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -71,6 +82,7 @@ app.post("/login", async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Incorrect password" });
 
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1d" });
+
     return res.status(200).json({ message: "Success", token });
   } catch (err) {
     console.error("Login error:", err);
@@ -78,13 +90,13 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// ------------------- MAIN API ROUTES ------------------- //
-app.use("/api/trucks", truckRoutes);   // ✅ TRUCK ROUTES
-app.use("/api/drivers", driverRoutes); // ✅ DRIVER ROUTES
-
-// ------------------- TEST ROUTE ------------------- //
+// ------------------- DEFAULT + 404 ------------------- //
 app.get("/", (req, res) => {
   res.send("🚛 Rajhans Transport API is running");
+});
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
 });
 
 // ------------------- START SERVER ------------------- //

@@ -1,5 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from '../axiosConfig';
+import '../styles/AddTruck.css';
+import {
+  FaTruck,
+  FaPlus,
+  FaCalendarAlt,
+  FaFilePdf,
+  FaImage,
+  FaCheckCircle,
+  FaExclamationCircle,
+  FaQrcode,
+  FaDownload
+} from "react-icons/fa";
 
 function AddTruck() {
   const [formData, setFormData] = useState({
@@ -77,17 +89,16 @@ function AddTruck() {
         if (value) data.append(key, value);
       });
 
-      setQrCode(null); // ✅ Reset QR before submitting new truck
+      setQrCode(null);
 
       const res = await axios.post('/api/trucks', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      setSuccessMessage('✅ Truck added successfully!');
+      setSuccessMessage('Truck added successfully!');
       setErrorMessage('');
       setQrCode(res.data.truck?.qrCode || null);
 
-      // Reset
       setFormData({
         truckNumber: '',
         model: '',
@@ -114,9 +125,8 @@ function AddTruck() {
 
       setPreview(null);
     } catch (err) {
-      setErrorMessage('❌ Error adding truck. Please try again.');
+      setErrorMessage('Error adding truck. Please try again.');
       setSuccessMessage('');
-      console.error(err);
     }
   };
 
@@ -128,43 +138,50 @@ function AddTruck() {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="card shadow-lg border-0">
-        <div className="card-header bg-dark text-warning fw-bold fs-5 py-3">
-          🚛 Add New Truck
+    <div className="addtruck-container">
+      <div className="addtruck-card">
+        <div className="addtruck-header">
+          <FaTruck className="addtruck-header-icon" />
+          Add New Truck
         </div>
 
-        <div className="card-body">
+        <div className="addtruck-body">
           {successMessage && (
-            <div className="alert alert-success text-center fw-bold">{successMessage}</div>
+            <div className="addtruck-alert-success">
+              <FaCheckCircle style={{ marginRight: 6 }} />
+              {successMessage}
+            </div>
           )}
           {errorMessage && (
-            <div className="alert alert-danger text-center fw-bold">{errorMessage}</div>
+            <div className="addtruck-alert-error">
+              <FaExclamationCircle style={{ marginRight: 6 }} />
+              {errorMessage}
+            </div>
           )}
 
           <form onSubmit={handleSubmit} encType="multipart/form-data">
-            {/* Basic Info */}
             {[
-              { label: 'Truck Number', name: 'truckNumber' },
-              { label: 'Model', name: 'model' },
-              { label: 'Year of Manufacture', name: 'yearOfManufacture', type: 'number' },
-              { label: 'Vehicle Type', name: 'vehicleType' },
-              { label: 'Owner Name', name: 'ownerName' }
-            ].map(({ label, name, type = 'text' }) => (
-              <div className="mb-3" key={name}>
-                <label className="form-label">{label}</label>
+              { label: 'Truck Number', name: 'truckNumber', icon: <FaPlus /> },
+              { label: 'Model', name: 'model', icon: <FaTruck /> },
+              { label: 'Year of Manufacture', name: 'yearOfManufacture', type: 'number', icon: <FaCalendarAlt /> },
+              { label: 'Vehicle Type', name: 'vehicleType', icon: <FaTruck /> },
+              { label: 'Owner Name', name: 'ownerName', icon: <FaTruck /> }
+            ].map(({ label, name, type = 'text', icon }) => (
+              <div className="addtruck-field" key={name}>
+                <label className="addtruck-label">
+                  {icon} {label}
+                </label>
                 <input
                   type={type}
                   name={name}
                   value={formData[name]}
                   onChange={handleChange}
-                  className="form-control"
+                  className="addtruck-input"
                   required
                 />
               </div>
             ))}
 
-            {/* Expiry Dates */}
             {[
               { label: 'PUC Expiry', name: 'pucExpiry' },
               { label: 'All India Permit Expiry', name: 'allIndiaPermitExpiry' },
@@ -173,65 +190,66 @@ function AddTruck() {
               { label: 'Fitness Expiry', name: 'fitnessExpiry' },
               { label: 'Road Tax Expiry', name: 'roadTaxExpiry' }
             ].map(({ label, name }) => (
-              <div className="mb-3" key={name}>
-                <label className="form-label">{label}</label>
+              <div className="addtruck-field" key={name}>
+                <label className="addtruck-label">
+                  <FaCalendarAlt /> {label}
+                </label>
                 <input
                   type="date"
                   name={name}
                   value={formData[name]}
                   onChange={handleChange}
-                  className="form-control"
+                  className="addtruck-input"
                   min={today}
                 />
               </div>
             ))}
 
-            {/* File Uploads */}
             {[
-              { label: 'PUC File (PDF)', name: 'pucFile', accept: 'application/pdf' },
-              { label: 'All India Permit File (PDF)', name: 'permitAllIndiaFile', accept: 'application/pdf' },
-              { label: 'Gujarat Permit File (PDF)', name: 'permitGujaratFile', accept: 'application/pdf' },
-              { label: 'Insurance File (PDF)', name: 'insuranceFile', accept: 'application/pdf' },
-              { label: 'Fitness File (PDF)', name: 'fitnessFile', accept: 'application/pdf' },
-              { label: 'RC File (PDF)', name: 'rcFile', accept: 'application/pdf' },
-              { label: 'Truck Image (Image)', name: 'truckImage', accept: 'image/*' }
-            ].map(({ label, name, accept }) => (
-              <div className="mb-3" key={name}>
-                <label className="form-label">{label}</label>
+              { label: 'PUC File (PDF)', name: 'pucFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'All India Permit File (PDF)', name: 'permitAllIndiaFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'Gujarat Permit File (PDF)', name: 'permitGujaratFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'Insurance File (PDF)', name: 'insuranceFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'Fitness File (PDF)', name: 'fitnessFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'RC File (PDF)', name: 'rcFile', accept: 'application/pdf', icon: <FaFilePdf /> },
+              { label: 'Truck Image (Image)', name: 'truckImage', accept: 'image/*', icon: <FaImage /> }
+            ].map(({ label, name, accept, icon }) => (
+              <div className="addtruck-field" key={name}>
+                <label className="addtruck-label">
+                  {icon} {label}
+                </label>
                 <input
                   type="file"
                   name={name}
                   onChange={handleFileChange}
-                  className="form-control"
+                  className="addtruck-input"
                   accept={accept}
                 />
               </div>
             ))}
 
-            {/* Image Preview */}
             {preview && (
-              <div className="mb-3 text-center">
-                <img
-                  src={preview}
-                  alt="Truck Preview"
-                  width="250"
-                  className="img-thumbnail"
-                />
+              <div className="addtruck-preview">
+                <img src={preview} alt="Truck Preview" width="250" className="addtruck-img-preview" />
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="addtruck-btn-save">
+              <FaPlus style={{ marginRight: 6 }} />
               Add Truck
             </button>
           </form>
 
-          {/* QR Code */}
           {qrCode && (
-            <div className="mt-4 text-center">
-              <h5>QR Code for Truck:</h5>
+            <div className="addtruck-qr-section">
+              <h5 className="addtruck-qr-title">
+                <FaQrcode style={{ marginRight: 6 }} />
+                QR Code for Truck:
+              </h5>
               <img src={qrCode} alt="QR Code" width="200" className="mb-2" />
               <br />
-              <button onClick={handleDownload} className="btn btn-success">
+              <button onClick={handleDownload} className="addtruck-btn-save">
+                <FaDownload style={{ marginRight: 6 }} />
                 Download QR
               </button>
             </div>

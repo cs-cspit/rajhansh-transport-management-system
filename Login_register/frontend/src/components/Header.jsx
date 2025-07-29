@@ -1,6 +1,6 @@
 // src/components/Header.jsx
-import React from "react";
-import "../layout.css";
+import React from "react";        
+import '../styles/layout.css'; // Use lowercase to match your file
 
 function Header({ toggleSidebar }) {
   const handleLogout = () => {
@@ -9,15 +9,34 @@ function Header({ toggleSidebar }) {
   };
 
   return (
-    <div className="header">
+    <header className="header">
+      {/* Left: Sidebar toggle + Logo + Name */}
       <div className="header-left">
-        <button className="menu-toggle" onClick={toggleSidebar}>☰</button>
-        <img src="/logo-dark2.jpg" alt="Logo" className="header-logo" />
-        <h4 className="header-title">Rajhans Transport</h4>
+        <button
+          onClick={toggleSidebar}
+          className="menu-toggle"
+          aria-label="Toggle sidebar"
+        >
+          ☰
+        </button>
+        <img
+          src="/logo-dark2.jpg"
+          alt="Rajhans Logo"
+          className="header-logo"
+        />
+        <span className="header-title">
+          Rajhans Transport
+        </span>
       </div>
-      <button className="logout-btn" onClick={handleLogout}>Logout</button>
-    </div>
+      {/* Right: Logout */}
+      <button
+        onClick={handleLogout}
+        className="logout-btn"
+      >
+        Logout
+      </button>
+    </header>
   );
 }
 
-export default Header;
+export default Header;  

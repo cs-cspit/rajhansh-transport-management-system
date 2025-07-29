@@ -1,0 +1,134 @@
+.addtruck-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.addtruck-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 0;
+  overflow: hidden;
+}
+
+.addtruck-header {
+  background: #fff;
+  color: #f47c27;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 22px 0 10px 0;
+  border-bottom: 2px solid #f47c27;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.addtruck-header-icon {
+  font-size: 2rem;
+  color: #f47c27;
+}
+
+.addtruck-body {
+  padding: 32px 24px;
+}
+
+.addtruck-alert-success,
+.addtruck-alert-error {
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.addtruck-alert-success {
+  background: #fff3e0;
+  color: #f47c27;
+  border: 1.5px solid #f47c27;
+}
+.addtruck-alert-error {
+  background: #fff0f0;
+  color: #d32f2f;
+  border: 1.5px solid #d32f2f;
+}
+
+.addtruck-field {
+  margin-bottom: 1.2rem;
+}
+
+.addtruck-label {
+  color: #222;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.addtruck-input {
+  border: 1.5px solid #f47c27;
+  border-radius: 6px;
+  padding: 8px 10px;
+  width: 100%;
+  color: #222;
+  background: #fff;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
+.addtruck-input[type="file"] {
+  padding: 6px 2px;
+}
+
+.addtruck-btn-save {
+  background: #f47c27;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-top: 10px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.addtruck-btn-save:hover {
+  background: #d65d0e;
+}
+
+.addtruck-preview {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+.addtruck-img-preview {
+  border-radius: 10px;
+  border: 2px solid #f47c27;
+  box-shadow: 0 2px 8px rgba(244,124,39,0.08);
+}
+
+.addtruck-qr-section {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+.addtruck-qr-title {
+  color: #f47c27;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}

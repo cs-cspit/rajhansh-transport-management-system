@@ -35,11 +35,23 @@ const driverSchema = new mongoose.Schema({
       },
     },
   ],
+  role: {
+    type: String,
+    default: 'driver',
+  },
+  status: {
+    type: String,
+    enum: ['active', 'inactive', 'blocked'],
+    default: 'active',
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+// Indexes for performance
+driverSchema.index({ phone: 1, email: 1 });
 
 // Hash password before saving
 driverSchema.pre('save', async function (next) {
