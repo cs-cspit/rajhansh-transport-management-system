@@ -1,0 +1,48 @@
+.trips-filters {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.trips-filters label {
+  font-weight: 500;
+  color: #222;
+}
+.trips-filters select,
+.trips-filters input[type="date"] {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+.trips-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.trips-table th, .trips-table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+}
+.trips-table th {
+  background: #222;
+  color: #ff9800;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.trips-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+.trips-table tr:hover {
+  background: #ffe0b2;
+}
+.placeholder {
+  color: #888;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}

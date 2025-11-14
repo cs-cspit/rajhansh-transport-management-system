@@ -1,0 +1,145 @@
+:root{
+  --brand-orange: #FF7A2F;
+  --brand-orange-dark: #E8671F;
+  --brand-orange-light: #FFE7D6;
+  --brand-white: #FFFFFF;
+  --brand-black: #0B0B0D;
+  --border-light: rgba(0,0,0,0.06);
+}
+
+/* Container */
+.container{
+  max-width:1200px;
+}
+
+.trucks-title{
+  color:var(--brand-black);
+  font-weight:700;
+  letter-spacing:1px;
+  text-align:center;
+  margin-bottom:1.5rem;
+}
+
+/* Alerts */
+.trucks-alert-success{background:var(--brand-orange-light);color:var(--brand-orange-dark);border:1px solid var(--brand-orange-light);font-weight:600}
+.trucks-alert-error{background:var(--brand-white);color:var(--brand-black);border:1px solid var(--border-light);font-weight:600}
+
+/* Search & Top row */
+.trucks-search-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;background:var(--brand-white);padding:12px;border-radius:12px;border:1px solid var(--border-light)}
+.trucks-search-row { background: var(--brand-white); border: 1px solid var(--border-light); }
+
+.trucks-search-input{max-width:300px;border:1px solid var(--border-light);background:var(--brand-white);color:var(--brand-black);padding:8px;border-radius:8px}
+.trucks-search-input::placeholder{color:rgba(0,0,0,0.45)}
+
+/* inputs */
+.trucks-search-input,
+.truck-filter-select {
+  border: 1px solid var(--border-light);
+  background: var(--brand-white);
+  color: var(--brand-black);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.trucks-add-btn{background:var(--brand-orange);color:var(--brand-white);font-weight:600;border-radius:10px;border:none;padding:8px 18px;transition:background .22s}
+.trucks-add-btn:hover{background:var(--brand-orange-dark)}
+
+.btn-add {
+  background: var(--brand-orange);
+  color: var(--brand-white);
+  border-radius: 10px;
+  border: none;
+  padding: 8px 14px;
+  transition: background .22s;
+}
+.trucks-add-btn:hover,
+.btn-add:hover {
+  background: var(--brand-orange-dark);
+}
+
+.trucks-export-btn{border:1px solid var(--border-light);color:var(--brand-black);font-weight:600;background:var(--brand-white);border-radius:10px;padding:8px 18px;transition:all .22s}
+.trucks-export-btn:disabled{opacity:.6;cursor:not-allowed}
+.trucks-export-btn:hover:not(:disabled){background:rgba(255,122,61,0.06);color:var(--text)}
+
+/* Truck Card */
+.truck-card{background:var(--brand-white);border:1px solid var(--border-light);color:var(--brand-black);border-radius:16px;margin-bottom:1.25rem;transition:transform .22s,box-shadow .22s;padding:1rem}
+.truck-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.08)}
+.truck-card .card-header{background:var(--brand-orange);border-radius:12px 12px 0 0;padding:.6rem}
+.truck-card .card-title{color:var(--brand-black);font-weight:700}
+.truck-card p, .truck-card .card-info { color: rgba(0,0,0,0.6); } /* muted info text */
+.truck-card a{color:var(--brand-orange);font-weight:500;text-decoration:none}
+.truck-card a:hover{color:var(--brand-white);background:var(--brand-orange);padding:0 4px;border-radius:4px}
+
+/* Action icons */
+.truck-action, .action-icon {
+  color: rgba(0,0,0,0.45); /* muted dark */
+  border-radius: 8px;
+  padding: 6px;
+  transition: background .22s, color .22s;
+}
+.truck-action:hover, .action-icon:hover {
+  background: rgba(255,122,47,0.12); /* subtle orange overlay */
+  color: var(--brand-white);
+}
+
+/* Status badges */
+.status-badge{background:var(--brand-orange-light);border:1px solid var(--brand-orange-light);color:var(--brand-orange-dark);font-weight:700;padding:6px 10px;border-radius:10px}
+.status-badge.active,
+.badge-active {
+  background: var(--brand-orange-light);
+  color: var(--brand-orange-dark);
+  border: 1px solid var(--brand-orange-light);
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* Pagination */
+.trucks-pagination .page-link{color:var(--brand-black);border-color:var(--border-light);background:var(--brand-white);font-weight:600;transition:all .22s}
+.trucks-pagination .active .page-link,.trucks-pagination .page-link.active{color:var(--brand-white)!important;background:var(--brand-orange)!important;border-color:var(--brand-orange)!important}
+.trucks-pagination .page-link:focus{box-shadow:0 0 0 4px rgba(255,122,47,0.08)}
+
+/* Confirm Modal */
+.trucks-confirm-modal .modal-title{color:var(--brand-black);font-weight:700}
+.trucks-confirm-modal .btn-confirm{background:var(--brand-orange);color:var(--brand-white);font-weight:700;border-radius:10px;border:none;padding:8px 16px}
+.trucks-confirm-modal .btn-confirm:hover{background:var(--brand-orange-dark)}
+.trucks-confirm-modal{background:var(--brand-white);color:var(--brand-black);border:1px solid var(--border-light);border-radius:12px;padding:20px}
+
+/* page-scoped button rules for Trucks page */
+.container .btn-primary{background:var(--brand-orange);color:var(--bg);border:none;border-radius:10px;padding:8px 16px}
+.container .btn-primary:hover{background:var(--orange-600)}
+.container .btn{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px}
+
+/* truck action buttons (edit/delete/view) */
+.truck-edit-btn,.truck-delete-btn{background:transparent;border:none;color:var(--muted);font-weight:700;padding:8px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:6px}
+.truck-edit-btn:hover,.truck-delete-btn:hover{background:rgba(255,122,61,0.12);color:var(--text)}
+
+/* QR label */
+.truck-qr-label{color:var(--muted);font-size:0.95rem;margin-top:6px}
+
+/* loading / empty state */
+.trucks-loading{color:var(--brand-orange);text-align:center}
+
+/* small icon helpers */
+.confirm-icon{color:var(--brand-orange);margin-right:6px}
+.edit-modal-icon{color:var(--brand-orange);margin-right:8px}
+
+/* Edit truck modal */
+.edit-truck-modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:2000;display:flex;align-items:center;justify-content:center}
+.edit-truck-modal{background:var(--brand-white);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);padding:28px;max-width:600px;width:100%;max-height:95vh;overflow-y:auto}
+.edit-truck-modal-title{color:var(--brand-black);font-weight:700;margin-bottom:18px;text-align:left}
+.edit-truck-modal-close{background:none;border:none;color:var(--text-secondary);font-size:1.3rem;cursor:pointer;padding:0 2px;transition:color .22s}
+.edit-truck-modal-close:hover{color:var(--brand-orange)}
+.edit-truck-label{color:var(--brand-black);font-weight:600;margin-bottom:6px;display:block}
+.edit-truck-input{border:1px solid var(--border-light);border-radius:10px;padding:10px;margin-bottom:10px;width:100%;color:var(--brand-black);background:var(--brand-white);font-size:1rem}
+.edit-truck-modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px}
+.edit-truck-btn-cancel{background:transparent;color:var(--brand-orange);border:1px solid var(--brand-orange);border-radius:10px;padding:8px 18px;font-weight:700;transition:all .22s}
+.edit-truck-btn-cancel:hover{background:var(--brand-orange);color:var(--bg)}
+.edit-truck-btn-save{background:var(--brand-orange);color:var(--bg);border:none;border-radius:10px;padding:8px 18px;font-weight:700;transition:background .22s}
+.edit-truck-btn-save:hover{background:var(--orange-600)}
+
+.fa-spin{animation:fa-spin 1s infinite linear}
+
+@media (max-width:768px){.container{padding:12px 2px}.trucks-search-row{flex-direction:column;gap=.5rem;padding:8px 0}.truck-card{margin-bottom:1rem}}
+
+@keyframes fa-spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}

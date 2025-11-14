@@ -1,0 +1,132 @@
+/* Full page dark background */
+body, #root {
+  min-height: 100vh;
+  background: #111;
+}
+
+/* Centered login card */
+.login-container {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 36px 32px 32px 32px;
+  background: #222;
+  border-radius: 22px;
+  box-shadow: 0 0 32px 4px #ffb30033;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.login-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-form .form-group {
+  margin-bottom: 22px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.login-form .form-control {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: #f3f6fb;
+  color: #222;
+  margin-bottom: 0;
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0001;
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-form .form-control:focus {
+  box-shadow: 0 0 0 2px #ffb30088;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 13px 0;
+  background: #ffb300;
+  color: #222;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #ffa000;
+}
+
+.error-message {
+  color: #ff5252;
+  background: #2d0000;
+  border: 1px solid #ffb3b3;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.login-link {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.signup-btn:hover {
+  background: #fff;
+  color: #222;
+}
+
+.login-error-space {
+  min-height: 38px; /* Adjust height as needed for your error message */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}

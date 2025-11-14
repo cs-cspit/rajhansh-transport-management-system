@@ -1,0 +1,387 @@
+.driver-profile-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.driver-profile-loading,
+.driver-profile-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.driver-profile-error h3 {
+    color: #dc3545;
+    margin-bottom: 10px;
+}
+
+.driver-profile-error p {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.driver-profile-alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.driver-profile-alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.driver-profile-alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.driver-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.driver-profile-back-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.driver-profile-back-btn:hover {
+    background-color: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+.driver-profile-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.driver-profile-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.driver-profile-btn-edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.driver-profile-btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.driver-profile-btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.driver-profile-btn-delete:hover {
+    background-color: #c82333;
+}
+
+.driver-profile-btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.driver-profile-btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.driver-profile-btn-save {
+    background-color: #28a745;
+    color: white;
+}
+
+.driver-profile-btn-save:hover {
+    background-color: #218838;
+}
+
+.driver-profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.driver-profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    border: 4px solid #e9ecef;
+    flex-shrink: 0;
+}
+
+.driver-profile-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.driver-profile-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.driver-profile-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.driver-profile-status-text {
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.driver-profile-status-text.active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.driver-profile-status-text.inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.driver-profile-status-text.blocked {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.driver-profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.driver-profile-detail {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.driver-profile-detail:last-child {
+    border-bottom: none;
+}
+
+.driver-profile-detail span {
+    font-size: 16px;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Modal Styles */
+.driver-profile-modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.driver-profile-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.driver-profile-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.driver-profile-modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.driver-profile-modal-close:hover {
+    background-color: #f8f9fa;
+}
+
+.driver-profile-modal-body {
+    padding: 24px;
+}
+
+.driver-profile-form-group {
+    margin-bottom: 20px;
+}
+
+.driver-profile-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.driver-profile-form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.driver-profile-form-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.driver-profile-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding: 20px 24px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .driver-profile-container {
+        padding: 15px;
+    }
+
+    .driver-profile-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .driver-profile-actions {
+        justify-content: center;
+    }
+
+    .driver-profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .driver-profile-avatar {
+        align-self: center;
+    }
+
+    .driver-profile-details {
+        align-items: center;
+    }
+
+    .driver-profile-detail {
+        justify-content: center;
+    }
+
+    .driver-profile-modal {
+        margin: 10px;
+        max-width: none;
+    }
+
+    .driver-profile-modal-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .driver-profile-name {
+        font-size: 1.5rem;
+    }
+
+    .driver-profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .driver-profile-detail span {
+        font-size: 14px;
+    }
+}
+
+.info-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 4px;
+    display: block;
+}
